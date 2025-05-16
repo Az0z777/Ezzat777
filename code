@@ -1,0 +1,72 @@
+CREATE DATABASE SchoolDB;
+USE SchoolDB;
+
+
+CREATE TABLE Student (
+    StudentID INT PRIMARY KEY AUTO_INCREMENT,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    DateOfBirth DATE,
+    Address TEXT,
+    Phone VARCHAR(15),
+    Email VARCHAR(100) UNIQUE
+);
+
+
+CREATE TABLE Parent (
+    ParentID INT PRIMARY KEY AUTO_INCREMENT,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Phone VARCHAR(15),
+    Email VARCHAR(100) UNIQUE,
+    Address TEXT
+);
+
+
+CREATE TABLE StudentParent (
+    StudentID INT,
+    ParentID INT,
+    PRIMARY KEY (StudentID, ParentID),
+    FOREIGN KEY (StudentID) REFERENCES Student(StudentID),
+    FOREIGN KEY (ParentID) REFERENCES Parent(ParentID)
+);
+
+-- جدول الأقسام
+CREATE TABLE Department (
+    DepartmentID INT PRIMARY KEY AUTO_INCREMENT,
+    DepartmentName VARCHAR(100) NOT NULL,
+    OfficeLocation VARCHAR(100),
+    Phone VARCHAR(15)
+);
+
+-- جدول المعلمين
+CREATE TABLE Teacher (
+    TeacherID INT PRIMARY KEY AUTO_INCREMENT,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) UNIQUE,
+    Phone VARCHAR(15),
+    HireDate DATE
+);
+
+
+CREATE TABLE Course (
+    CourseID INT PRIMARY KEY AUTO_INCREMENT,
+    CourseCode VARCHAR(20) UNIQUE NOT NULL,
+    CourseTitle VARCHAR(100) NOT NULL,
+    Description TEXT,
+    Credits INT,
+    DepartmentID INT,
+    FOREIGN KEY (DepartmentID) REFERENCES Department(DepartmentID)
+);
+
+(Enrollment)
+CREATE TABLE Enrollment (
+    EnrollmentID INT PRIMARY KEY AUTO_INCREMENT,
+    StudentID INT,
+    ClassID INT,   ClassID 
+    EnrollmentDate DATE,
+    Grade VARCHAR(5),
+    FOREIGN KEY (StudentID) REFERENCES Student(StudentID)
+    -- FOREIGN KEY (ClassID) REFERENCES Class(ClassID) 
+);
